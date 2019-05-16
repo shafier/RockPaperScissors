@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Shafie: Rock Paper Scissors Game</title>
+</head>
+
+<body>
+    <script>
+        // computer to play randomly Rock, Paper, or Scissors. 
+
+        // Step 5 part 2
+        function getPlayerSel() {
+            let answer = window.prompt('Please enter either Rock, Paper, or Scissors?', 'come on..').toLowerCase();
+            // window.prompt() breaks down when hit "Cancel" button. Returns "null" value. 
+            switch (answer) { // changed from "true" to "answer". true caused to jump to default.
+                case 'rock':
+                case 'paper':
+                case 'scissors':
+                    console.log('UserInput: ' + answer);
+                    return answer;
+                    break; // must have a break -> otherwise, the JVSc will go check the other cases until default. 
+                default:
+                    console.log('Unindentified error');
+                    return 'Unindentified error';
+            }
+        }
+
+        // Step 3 in the Assignment.
+        function computerPlay() {
+            // returns a random integer from 0 to 9 
+            let randomNumber = Math.floor(Math.random() * 10);
+            if (randomNumber < 4) {
+                return 'rock';
+            } else if (randomNumber < 7) {
+                return 'paper';
+            } else {
+                return 'scissors';
+            }
+        }
+
+        // Step 4 in the Assignment 
+        // remember playerSelection & computerSelection ARE PARAMETERS! Not Values.
+        function playRound(playerSelection, computerSelection) {
+
+            if ((playerSelection == 'rock' && computerSelection == 'rock') || (playerSelection == 'paper' && computerSelection == 'paper') || (playerSelection == 'scissors' && computerSelection == 'scissors')) {
+                tieScore++;
+                return 'It is a draw! ' + computerSelection + ' cannot beat another ' + playerSelection;
+            } else if ((playerSelection == 'rock' && computerSelection == 'paper') || (playerSelection == 'paper' && computerSelection == 'scissors') || (playerSelection == 'scissors' && computerSelection == 'rock')) {
+                computerScore++;
+                return 'You lose! ' + computerSelection + ' beats ' + playerSelection;
+            } else if ((playerSelection == 'rock' && computerSelection == 'scissors') || (playerSelection == 'paper' && computerSelection == 'rock') || (playerSelection == 'scissors' && computerSelection == 'paper')) {
+                playerScore++;
+                return 'You win! ' + computerSelection + ' does not beat ' + playerSelection;
+            } else {
+                return 'We have a Human Error: ' + playerSelection;
+            }
+        }
+
+        // global variables so that these variables in game() and playRound() are initialised.
+        let playerScore = 0;
+        let computerScore = 0;
+        let tieScore = 0;
+
+        // Step 5
+        function game() {
+
+            // variables inside game() ONLY. 
+            let roundGame = 1;
+
+            for (roundGame = 1; roundGame < 6; roundGame++) {
+
+                // local variables inside game() {}.
+
+                // this variable grabs the value of the getPlayerSel() AND makes it a Global var i.e. all Functions are able to use it.
+                let playerChoose = getPlayerSel(); // this works. ****BUT try with "playerChoose = getPlayerSel();"*** SEE what the impact is.
+                //  playerChoose = getPlayerSel(); // this works too. 
+                let computerChoose = computerPlay();
+
+                // here I pass the playerChoose and computerChoose VALUES into the playRound() function. Then I log the result.
+                //   console.log(playRound(playerChoose, computerChoose));
+                alert(playRound(playerChoose, computerChoose));
+
+                console.log("Your score is " + playerScore + " against computer's " + computerScore + " with " + tieScore + " number of ties. This is for round " + roundGame);
+                alert("Your score is " + playerScore + " against computer's " + computerScore + "\nwith " + tieScore + " number of ties." + "\nThis is round " + roundGame);
+                // https://www.w3schools.com/js/js_strings.asp for \n expln.
+
+            }
+            // this invokes endResult() function, with values of the parameters come from the loop above.
+            return endResult(playerScore, computerScore, tieScore);
+        }
+
+        function endResult(playerScore, computerScore, tieScore) {
+            if (playerScore > computerScore) {
+                return alert("You win!" + "\nYour score is " + playerScore + " against computer's " + computerScore + " with " + tieScore + " number of ties.");
+            }
+            else if (playerScore < computerScore) {
+                return alert("You lose!" + "\nYour score is " + playerScore + " against computer's " + computerScore + " with " + tieScore + " number of ties.");
+            }
+            else {
+                return alert("It is a TIE!" + "\nYour score is " + playerScore + " against computer's " + computerScore + " with " + tieScore + " number of ties.");
+            }
+        }
+
+        // this invokes (or calls) the game() and logs the value of the game().
+        // it is invoked when I open the html file via Firefox.
+        console.log(game());
+
+    </script>
+
+</body>
+
+</html>
