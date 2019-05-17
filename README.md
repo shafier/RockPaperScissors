@@ -8,4 +8,4 @@ In the project, I learnt:<br/>
 * To understand how the linkage works between the functions.
 * To move up the code from my laptop to GitHub website and move down (copying from Respository).
 <br/>
-I got the game to work after spending a __lot of hours on it!__. <br/>
+I got the game to work after spending a __lot of hours__ on it!. <br/>
